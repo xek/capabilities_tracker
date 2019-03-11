@@ -67,8 +67,10 @@ function init_cap_name2num()
 {
   /* set up the filter */
   ignored_exe["oci-umount"] = 1
+  ignored_exe["oci-register-ma"] = 1
   ignored_exe["runc:[1:CHILD]"] = 1
   ignored_exe["runc:[2:INIT]"] = 1
+  ignored_exe["docker-runc-cur"] = 1
   /* set up the names */
   cap_name[0]="cap_chown"
   cap_name[1]="cap_dac_override"
