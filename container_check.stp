@@ -168,7 +168,7 @@ probe ns_capable !, capable
     cap_use[tid()] |= cap
 }
 
-probe syscall_any.return
+probe syscall.*.return
 {
  # note any problem capabilities use during syscall
  cap = cap_use[tid()]
