@@ -6,7 +6,8 @@ if [[ $# -eq 0 ]]; then
 else
     echo Exit with ^C
     echo SystemTap is starting slowly...
-    sudo ./container_check.stp -x `pgrep -f docker-containerd-current` > $1
+    sudo ./container_check.stp -D KRETACTIVE=150 \
+	 -x `pgrep -f docker-containerd-current` > $1
 
     sed -i 's#(pid)#(container)#g' $1
     sudo docker inspect -f "sed -i 's#({{.State.Pid}})#({{.Name}})#g' $1" \
