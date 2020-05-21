@@ -1,0 +1,17 @@
+{
+    "version": "1.0.0",
+    "hook": {
+        "path": "/usr/local/libexec/capable-hook",
+        "args": [
+            "prestart"
+        ]
+    },
+    "when": {
+	"annotations": {
+            "io.containers.trace-capabilities": "true"
+        }
+    },
+    "stages": [
+        "prestart"
+    ]
+}

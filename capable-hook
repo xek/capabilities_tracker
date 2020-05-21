@@ -1,0 +1,8 @@
+#!/bin/sh
+
+CONTAINER_ID=`pwd | cut -d/ -f7`
+CONTAINER_CGROUP_ID=`/usr/local/libexec/cgroupid hex \
+	/sys/fs/cgroup/unified/machine.slice/libpod-$CONTAINER_ID.scope`
+/usr/sbin/bpftool map update pinned /sys/fs/bpf/capable \
+	key hex $CONTAINER_CGROUP_ID \
+	value hex 00 00 00 00 00 00 00 00 any

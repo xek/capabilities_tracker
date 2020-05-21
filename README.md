@@ -1,16 +1,35 @@
 # Capabilities Tracker
 
-This is a quick modification to `container_check.stp` (originally by
-William Cohen), so that it can tap on a set of containers that are
-running in privileged mode, to see what capabilities they really need.
+This adds the capable bcc tracer to podman using oci-hooks.
 
-1. Install stap and start dockerd
-2. Run `./systap_test.sh <output.log>`
-3. Start your containers in privileged mode or with seccomp disabled
-4. Test out the services running inside your containers
-5. Send `^C` or kill the stap process, don't kill your containers
-6. Check out the capabilities you need in your `<output.log>`
+## Installation
 
-The `container_check.stp` is modified to filter out the docker processes and
-track the pid of the container, in addition to the executable name. After the
-run finishes, we replace the container pids with container names.
+1. Install the depondencies:
+  * [bpftool](https://github.com/torvalds/linux/tree/master/tools/bpf/bpftool)
+  * [bcc](https://github.com/iovisor/bcc)
+  * gcc, glibc
+  ```
+  dnf install bpftool bcc gcc glibc-static
+  ```
+2. Run `make && sudo make install` in the project directory to install
+
+
+## Usage
+
+1. Run the `capabilities-tracker`
+2. Start your container with `podman run --annotation io.containers.trace-capabilities=true ...`
+3. Check out the stdout of the `capabilities-tracker` process
+
+## Issues
+
+If you get permission denied errors in /sys/fs/bpf with SELinux,
+you can enable access with:
+
+```
+# ausearch -c 'bpftool' --raw | audit2allow -M my-bpftool
+# semodule -X 300 -i my-bpftool.pp
+```
+
+## Uninstall
+
+Uninstall with `make uninstall`

@@ -1,0 +1,6 @@
+#/bin/sh
+
+sudo bpftool map \
+     create /sys/fs/bpf/capable type hash key 8 value 8 entries 1024 \
+     name cgroupset flags 0
+sudo /usr/share/bcc/tools/capable --cgroupmap /sys/fs/bpf/capable "$@"
