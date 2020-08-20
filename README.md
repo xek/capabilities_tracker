@@ -4,7 +4,7 @@ This adds the capable bcc tracer to podman using oci-hooks.
 
 ## Installation
 
-1. Install the depondencies:
+1. Install the dependencies:
   * [bpftool](https://github.com/torvalds/linux/tree/master/tools/bpf/bpftool)
   * [bcc](https://github.com/iovisor/bcc)
   * gcc, glibc
